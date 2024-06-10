@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  nginx:
+    build:
+      context: ../
+      dockerfile: docker/nginx/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+
+  php-fpm:
+    build:
+      context: ../
+      dockerfile: docker/php-fpm/Dockerfile
+    # volumes:
+      # - ../coding-with-me-api:/var/www/html/coding-with-me-api
+    ports:
+      - "9000:9000"
+
+  mariadb:
+    image: mariadb:10.6
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  coding-with-me:
+    build:
+      context: ../coding-with-me
+      dockerfile: Dockerfile.prod
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mariadb
+    platform: linux/amd64
+
+volumes:
+  db_data:
+    driver: local
