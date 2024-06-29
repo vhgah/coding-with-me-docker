@@ -4,7 +4,9 @@ services:
   nginx:
     build:
       context: ../
-      dockerfile: docker/nginx/Dockerfile
+      dockerfile: coding-with-me-docker/nginx/Dockerfile
+    # volumes:
+      # - ../coding-with-me-api:/var/www/html/coding-with-me-api
     restart: unless-stopped
     ports:
       - "80:80"
@@ -12,7 +14,7 @@ services:
   php-fpm:
     build:
       context: ../
-      dockerfile: docker/php-fpm/Dockerfile
+      dockerfile: coding-with-me-docker/php-fpm/Dockerfile
     # volumes:
       # - ../coding-with-me-api:/var/www/html/coding-with-me-api
     ports:

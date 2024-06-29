@@ -4,6 +4,6 @@ WORKDIR /var/www/html
 
 COPY coding-with-me-api coding-with-me-api
 
-COPY docker/nginx/default.conf /etc/nginx/nginx.conf
+COPY coding-with-me-docker/nginx/default.conf /etc/nginx/nginx.conf
 
-COPY docker/nginx/conf.d/*.conf /etc/nginx/conf.d/
+COPY coding-with-me-docker/nginx/conf.d/*.conf /etc/nginx/conf.d/
