@@ -5,8 +5,8 @@ services:
     build:
       context: ../
       dockerfile: coding-with-me-docker/nginx/Dockerfile
-    # volumes:
-      # - ../coding-with-me-api:/var/www/html/coding-with-me-api
+    volumes:
+      - ../coding-with-me-api:/var/www/html/coding-with-me-api
     restart: unless-stopped
     ports:
       - "80:80"
@@ -15,8 +15,8 @@ services:
     build:
       context: ../
       dockerfile: coding-with-me-docker/php-fpm/Dockerfile
-    # volumes:
-      # - ../coding-with-me-api:/var/www/html/coding-with-me-api
+    volumes:
+      - ../coding-with-me-api:/var/www/html/coding-with-me-api
     ports:
       - "9000:9000"
 
@@ -36,11 +36,14 @@ services:
       context: ../coding-with-me
       dockerfile: Dockerfile.prod
 
+  # coding-with-me-admin:
+  #   build:
+  #     context: ../coding-with-me-admin
+  #     dockerfile: Dockerfile
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
-    ports:
-      - "8080:80"
     environment:
       PMA_HOST: mariadb
     platform: linux/amd64

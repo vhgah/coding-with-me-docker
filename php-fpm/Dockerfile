@@ -8,7 +8,7 @@ RUN apt-get update \
 
 WORKDIR /var/www/html
 
-COPY coding-with-me-api coding-with-me-api
+# COPY coding-with-me-api coding-with-me-api
 
 EXPOSE 9000
 
